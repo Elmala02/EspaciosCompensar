@@ -2,12 +2,11 @@
  * =========================================================================
  * SPACECONFIG: CONFIGURACIÓN CENTRALIZADA DE ESPACIOS ACADÉMICOS
  * =========================================================================
- * Arquitectura: Eliminación del antipatrón "Hard Coding".
  * Centraliza la definición de edificios, salas, franjas horarias,
  * credenciales demo institucionales y parámetros de configuración.
  */
 
-const SpaceConfig = Object.freeze({
+export const SpaceConfig = Object.freeze({
   // Credenciales Institucionales de Demostración
   demoCredentials: Object.freeze([
     {
@@ -16,9 +15,9 @@ const SpaceConfig = Object.freeze({
       email: 'carlos.mendoza@ucompensar.edu.co',
       password: 'password123',
       name: 'Prof. Carlos Mendoza',
-      department: 'Docente de Ingeniería',
+      department: 'Facultad de Ingeniería',
       initials: 'CM',
-      behavior: 'Acceso Autorizado al Sistema de Reservas.'
+      behavior: 'Acceso Autorizado: Aprobación directa e inmediata (DocenteReservaStrategy).'
     },
     {
       role: 'Estudiante',
@@ -28,7 +27,7 @@ const SpaceConfig = Object.freeze({
       name: 'Estudiante Demo',
       department: 'Ingeniería de Sistemas',
       initials: 'ED',
-      behavior: 'Fallo Silencioso Intencional: El botón carga por 1.8s y se detiene sin mensaje ni acceso.'
+      behavior: 'Acceso Autorizado: Máximo 2h, requiere aprobación y restringe equipos avanzados (EstudianteReservaStrategy).'
     },
     {
       role: 'Administrador',
@@ -38,7 +37,7 @@ const SpaceConfig = Object.freeze({
       name: 'Ing. Laura Pardo',
       department: 'Coordinación de Infraestructura',
       initials: 'LP',
-      behavior: 'Acceso Autorizado con privilegios de gestión.'
+      behavior: 'Acceso Autorizado: Gestión total de planta física del campus.'
     }
   ]),
 
@@ -83,16 +82,15 @@ const SpaceConfig = Object.freeze({
 
   // Franjas Horarias Académicas
   timeSlots: Object.freeze([
-    { id: '07:00 - 09:00', label: '07:00 AM - 09:00 AM (Bloque Mañana 1)' },
-    { id: '09:00 - 11:00', label: '09:00 AM - 11:00 AM (Bloque Mañana 2)' },
-    { id: '11:00 - 13:00', label: '11:00 AM - 01:00 PM (Bloque Mediodía)' },
-    { id: '14:00 - 16:00', label: '02:00 PM - 04:00 PM (Bloque Tarde 1)' },
-    { id: '16:00 - 18:00', label: '04:00 PM - 06:00 PM (Bloque Tarde 2)' },
-    { id: '18:30 - 21:30', label: '06:30 PM - 09:30 PM (Bloque Nocturno)' }
+    { id: '07:00 - 09:00', label: '07:00 AM - 09:00 AM (Bloque Mañana 1)', durationHours: 2 },
+    { id: '09:00 - 11:00', label: '09:00 AM - 11:00 AM (Bloque Mañana 2)', durationHours: 2 },
+    { id: '11:00 - 13:00', label: '11:00 AM - 01:00 PM (Bloque Mediodía)', durationHours: 2 },
+    { id: '14:00 - 16:00', label: '02:00 PM - 04:00 PM (Bloque Tarde 1)', durationHours: 2 },
+    { id: '16:00 - 18:00', label: '04:00 PM - 06:00 PM (Bloque Tarde 2)', durationHours: 2 },
+    { id: '18:30 - 21:30', label: '06:30 PM - 09:30 PM (Bloque Nocturno Extendido)', durationHours: 3 }
   ]),
 
-  // Días de ocupación (Disponibilidad interna para el mes activo)
-  // NOTA ARQUITECTÓNICA: Antipatrón de usabilidad preservado (calendario ciego).
+  // Días de ocupación (Disponibilidad interna para el mes activo de Noviembre 2026)
   calendarDays: Object.freeze([
     { day: 1, available: false }, { day: 2, available: true }, { day: 3, available: false },
     { day: 4, available: false }, { day: 5, available: true }, { day: 6, available: true },
@@ -114,17 +112,11 @@ const SpaceConfig = Object.freeze({
   ]),
 
   // Metadatos de periodo institucional
-  metadata: Object.freeze([
-    { key: 'academicPeriod', value: '2026-I' },
-    { key: 'campusName', value: 'Calle 42' },
-    { key: 'monthName', value: 'Noviembre 2026' }
-  ]).reduce((acc, item) => ({ ...acc, [item.key]: item.value }), {})
+  metadata: Object.freeze({
+    academicPeriod: '2026-I',
+    campusName: 'Campus Calle 42',
+    monthName: 'Noviembre 2026'
+  })
 });
 
-// Compatibilidad con CommonJS, ES Modules y Browser Global
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = SpaceConfig;
-}
-if (typeof window !== 'undefined') {
-  window.SpaceConfig = SpaceConfig;
-}
+export default SpaceConfig;

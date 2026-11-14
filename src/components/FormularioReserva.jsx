@@ -50,8 +50,7 @@ export default function FormularioReserva({
       fecha: formattedDate,
       franjaHoraria: currentSlot,
       solicitante: currentUser,
-      motivo: purpose,
-      costoBase: 35000
+      motivo: purpose
     });
 
     // 2. Aplicación acumulativa de Decoradores Concretos
@@ -279,7 +278,7 @@ export default function FormularioReserva({
                     Láser 4K + HDMI/USB-C
                   </p>
                   <span className="text-[10px] font-semibold text-orange-600 block mt-1">
-                    +$25.000 COP (Peso +1)
+                    Dotación: Nivel +1 (Uso Gratuito)
                   </span>
                 </div>
               </label>
@@ -304,7 +303,7 @@ export default function FormularioReserva({
                     2 Micrófonos Shure + Consola
                   </p>
                   <span className="text-[10px] font-semibold text-orange-600 block mt-1">
-                    +$35.000 COP (Peso +2)
+                    Dotación: Nivel +2 (Uso Gratuito)
                   </span>
                 </div>
               </label>
@@ -329,7 +328,7 @@ export default function FormularioReserva({
                     20 Laptops GPU RTX + Switch
                   </p>
                   <span className="text-[10px] font-semibold text-orange-600 block mt-1">
-                    +$60.000 COP (Peso +3)
+                    Dotación: Nivel +3 (Uso Gratuito)
                   </span>
                 </div>
               </label>
@@ -363,9 +362,9 @@ export default function FormularioReserva({
                 </strong>
               </div>
               <div>
-                <span className="text-gray-500">Inversión Total: </span>
-                <strong className="text-gray-900">
-                  ${decoratedReservation.getCosto().toLocaleString('es-CO')} COP
+                <span className="text-gray-500">Tarifa Institucional: </span>
+                <strong className="text-gray-900 bg-white px-2 py-0.5 rounded border border-gray-200">
+                  100% Gratuito (Sin Cobro)
                 </strong>
               </div>
             </div>

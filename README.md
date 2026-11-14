@@ -15,7 +15,7 @@ En el campus institucional de **UCompensar**, la gestión y asignación de aulas
    La interfaz debe comunicar retroalimentación visual inmediata ante múltiples eventos (login exitoso, credenciales inválidas, reservas aprobadas, solicitudes en revisión o saturación de espacios). El patrón **Factory Method** centraliza y desacopla la instanciación de toasts asegurando una paleta estricta institucional (naranja `#FF6600` para aprobados y gris carbón `#1F2937` para estados de error o revisión, eliminando el uso de colores no corporativos).
 
 2. **Dinamismo en la Dotación de Recursos Extra (Explosión Combinatoria Evitada):**
-   Una reserva física básica de un salón puede requerir equipamiento especializado adicional (proyector láser 4K, microfonía y consola de sonido, o kits de cómputo de alto rendimiento). Usar herencia tradicional exigiría decenas de subclases combinatorias (`ReservaConProyector`, `ReservaConProyectorYSonido`, etc.). El patrón **Decorator** permite envolver la reserva básica y acumular responsabilidades, recursos, costos e índices de carga operativa de manera transparente y en tiempo de ejecución.
+   Una reserva física básica de un salón puede requerir equipamiento especializado adicional (proyector láser 4K, microfonía y consola de sonido, o kits de cómputo de alto rendimiento). El servicio es **100% gratuito para fines académicos de estudiantes y profesores (sin cobros comerciales)**. Usar herencia tradicional exigiría decenas de subclases combinatorias (`ReservaConProyector`, `ReservaConProyectorYSonido`, etc.). El patrón **Decorator** permite envolver la reserva básica y acumular responsabilidades, recursos y niveles de dotación técnica de manera transparente y en tiempo de ejecución.
 
 3. **Flexibilidad en las Reglas de Negocio según el Rol (Intercambio de Algoritmos):**
    Las políticas de aprobación varían drásticamente entre estudiantes y docentes:
@@ -35,9 +35,9 @@ flowchart TD
     Form --> BaseRes["ReservaBase\n(Componente Concreto)"]
     
     subgraph Patrón_Estructural["2. Patrón Estructural: Decorator"]
-        BaseRes --> Dec1["ProyectorDecorator\n(+$25.000 COP, Peso +1)"]
-        Dec1 --> Dec2["SonidoDecorator\n(+$35.000 COP, Peso +2)"]
-        Dec2 --> Dec3["ComputadoresExtraDecorator\n(+$60.000 COP, Peso +3)"]
+        BaseRes --> Dec1["ProyectorDecorator\n(Dotación +1, Gratuito)"]
+        Dec1 --> Dec2["SonidoDecorator\n(Dotación +2, Gratuito)"]
+        Dec2 --> Dec3["ComputadoresExtraDecorator\n(Dotación +3, Gratuito)"]
     end
     
     subgraph Patrón_Comportamiento["3. Patrón de Comportamiento: Strategy"]
@@ -74,11 +74,11 @@ Cada archivo en `src/` incluye comentarios formales identificando su rol para fa
 ### 3.2. Patrón Estructural: Decorator
 | Clase / Archivo | Rol GoF en UML | Responsabilidad |
 |---|---|---|
-| `ReservaBase` | `// Rol GoF: Component / ConcreteComponent` | Representa la reserva simple de un espacio académico. |
+| `ReservaBase` | `// Rol GoF: Component / ConcreteComponent` | Representa la reserva simple de un espacio académico (100% gratuito). |
 | `ReservaDecorator` | `// Rol GoF: Decorator` | Clase abstracta que mantiene la referencia a la reserva y delega operaciones. |
-| `ProyectorDecorator` | `// Rol GoF: ConcreteDecorator` | Añade proyector 4K y HDMI/USB-C (+peso 1, +$25.000 COP). |
-| `SonidoDecorator` | `// Rol GoF: ConcreteDecorator` | Añade microfonía Shure y consola digital (+peso 2, +$35.000 COP). |
-| `ComputadoresExtraDecorator` | `// Rol GoF: ConcreteDecorator` | Añade 20 laptops GPU RTX y switch de red (+peso 3, +$60.000 COP). |
+| `ProyectorDecorator` | `// Rol GoF: ConcreteDecorator` | Añade proyector 4K y HDMI/USB-C (Nivel de dotación +1, sin costo). |
+| `SonidoDecorator` | `// Rol GoF: ConcreteDecorator` | Añade microfonía Shure y consola digital (Nivel de dotación +2, sin costo). |
+| `ComputadoresExtraDecorator` | `// Rol GoF: ConcreteDecorator` | Añade 20 laptops GPU RTX y switch de red (Nivel de dotación +3, sin costo). |
 
 ### 3.3. Patrón de Comportamiento: Strategy
 | Clase / Archivo | Rol GoF en UML | Responsabilidad |
@@ -134,7 +134,7 @@ classDiagram
         +getDescripcion() String
         +getRecursos() String[]
         +getPesoRecursos() Number
-        +getCosto() Number
+        +getTipoAcceso() String
     }
     class ReservaDecorator {
         <<abstract>>
@@ -142,25 +142,22 @@ classDiagram
         +getDescripcion() String
         +getRecursos() String[]
         +getPesoRecursos() Number
-        +getCosto() Number
+        +getTipoAcceso() String
     }
     class ProyectorDecorator {
         +getDescripcion() String
         +getRecursos() String[]
         +getPesoRecursos() Number
-        +getCosto() Number
     }
     class SonidoDecorator {
         +getDescripcion() String
         +getRecursos() String[]
         +getPesoRecursos() Number
-        +getCosto() Number
     }
     class ComputadoresExtraDecorator {
         +getDescripcion() String
         +getRecursos() String[]
         +getPesoRecursos() Number
-        +getCosto() Number
     }
 
     ReservaDecorator <|-- ProyectorDecorator

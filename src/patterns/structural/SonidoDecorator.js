@@ -5,6 +5,7 @@
  * =========================================================================
  * Añade un sistema de audio profesional con microfonía inalámbrica dual
  * y consola de mezcla a la reserva.
+ * Recurso académico institucional gratuito.
  */
 
 import { ReservaDecorator } from './ReservaDecorator.js';
@@ -13,8 +14,7 @@ import { ReservaDecorator } from './ReservaDecorator.js';
 export class SonidoDecorator extends ReservaDecorator {
   constructor(reserva) {
     super(reserva);
-    this.costoExtra = 35000;
-    this.pesoExtra = 2;
+    this.pesoExtra = 2; // Nivel de dotación técnica para eventos o conferencias
   }
 
   getDescripcion() {
@@ -32,10 +32,6 @@ export class SonidoDecorator extends ReservaDecorator {
 
   getPesoRecursos() {
     return super.getPesoRecursos() + this.pesoExtra;
-  }
-
-  getCosto() {
-    return super.getCosto() + this.costoExtra;
   }
 }
 

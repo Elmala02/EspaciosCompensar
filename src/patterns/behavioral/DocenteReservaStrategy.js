@@ -41,7 +41,7 @@ export class DocenteReservaStrategy extends ValidacionReservaStrategy {
         codigo: reserva.getId(),
         prioridad: 'Alta Institucional',
         pesoRecursos: reserva.getPesoRecursos(),
-        costoCOP: reserva.getCosto(),
+        tipoAcceso: reserva.getTipoAcceso(),
         equipamientoAsignado: recursos
       }
     };

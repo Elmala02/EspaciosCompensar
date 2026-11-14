@@ -4,6 +4,7 @@
  * Decorador: ProyectorDecorator
  * =========================================================================
  * Añade un proyector interactivo 4K y conectividad HDMI/USB-C a la reserva.
+ * Recurso académico institucional gratuito.
  */
 
 import { ReservaDecorator } from './ReservaDecorator.js';
@@ -12,8 +13,7 @@ import { ReservaDecorator } from './ReservaDecorator.js';
 export class ProyectorDecorator extends ReservaDecorator {
   constructor(reserva) {
     super(reserva);
-    this.costoExtra = 25000;
-    this.pesoExtra = 1;
+    this.pesoExtra = 1; // Incrementa el nivel de dotación técnica requerida
   }
 
   getDescripcion() {
@@ -30,10 +30,6 @@ export class ProyectorDecorator extends ReservaDecorator {
 
   getPesoRecursos() {
     return super.getPesoRecursos() + this.pesoExtra;
-  }
-
-  getCosto() {
-    return super.getCosto() + this.costoExtra;
   }
 }
 

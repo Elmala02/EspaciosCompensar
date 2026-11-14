@@ -4,7 +4,8 @@
  * Clase Base Abstracta Decoradora de Reservas
  * =========================================================================
  * Envuelve una reserva (base o ya decorada) cumpliendo el mismo contrato,
- * permitiendo añadir responsabilidades, recursos y costos dinámicamente.
+ * permitiendo añadir equipamiento técnico y recursos adicionales dinámicamente
+ * para el uso académico gratuito de docentes y estudiantes.
  */
 
 // Rol GoF: Decorator
@@ -13,7 +14,7 @@ export class ReservaDecorator {
    * @param {Object} reserva - Instancia de ReservaBase o de otro ReservaDecorator
    */
   constructor(reserva) {
-    if (!reserva || typeof reserva.getCosto !== 'function') {
+    if (!reserva || typeof reserva.getPesoRecursos !== 'function') {
       throw new TypeError("ReservaDecorator: Se requiere una instancia válida que implemente la interfaz de reserva.");
     }
     this.reserva = reserva;
@@ -55,8 +56,8 @@ export class ReservaDecorator {
     return this.reserva.getPesoRecursos();
   }
 
-  getCosto() {
-    return this.reserva.getCosto();
+  getTipoAcceso() {
+    return this.reserva.getTipoAcceso();
   }
 }
 

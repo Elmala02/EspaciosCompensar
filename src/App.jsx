@@ -436,7 +436,7 @@ export default function App() {
                             </span>
                             <span>•</span>
                             <span>
-                              Costo: <strong className="text-gray-900">${item.reserva.getCosto().toLocaleString('es-CO')} COP</strong>
+                              Acceso: <strong className="text-gray-900">Uso Institucional Gratuito</strong>
                             </span>
                           </div>
                         </div>

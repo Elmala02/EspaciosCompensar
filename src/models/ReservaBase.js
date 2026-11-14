@@ -2,6 +2,8 @@
  * =========================================================================
  * MODELO DE DOMINIO Y COMPONENTE BASE DEL PATRÓN DECORATOR
  * =========================================================================
+ * Nota de Negocio: Los espacios y recursos son 100% gratuitos para
+ * estudiantes y profesores de UCompensar. No existen cobros monetarios.
  */
 
 // Rol GoF: Component / ConcreteComponent
@@ -14,7 +16,6 @@ export class ReservaBase {
    * @param {Object} params.franjaHoraria - { id: string, label: string, durationHours: number }
    * @param {Object} params.solicitante - { name: string, email: string, role: string, department: string }
    * @param {string} params.motivo - Justificación pedagógica / institucional
-   * @param {number} [params.costoBase=30000] - Costo base administrativo en COP
    */
   constructor({
     id,
@@ -22,8 +23,7 @@ export class ReservaBase {
     fecha,
     franjaHoraria,
     solicitante,
-    motivo,
-    costoBase = 30000
+    motivo
   }) {
     this.id = id || `RES-${Date.now().toString(36).toUpperCase()}`;
     this.espacio = espacio;
@@ -31,7 +31,6 @@ export class ReservaBase {
     this.franjaHoraria = franjaHoraria;
     this.solicitante = solicitante;
     this.motivo = motivo;
-    this.costoBase = costoBase;
     this.createdAt = new Date();
   }
 
@@ -76,8 +75,8 @@ export class ReservaBase {
   }
 
   /**
-   * Peso / prioridad de consumo de recursos (Base = 1)
-   * Escala acumulativa usada por los decoradores
+   * Nivel de dotación / peso de recursos (Base = 1)
+   * Escala acumulativa de demanda logística usada por los decoradores
    * @returns {number}
    */
   getPesoRecursos() {
@@ -85,11 +84,11 @@ export class ReservaBase {
   }
 
   /**
-   * Cálculo de costo total de la reserva base
-   * @returns {number}
+   * Estado de asignación presupuestal institucional (100% gratuito)
+   * @returns {string}
    */
-  getCosto() {
-    return this.costoBase;
+  getTipoAcceso() {
+    return 'Gratuito (Uso Académico Institucional)';
   }
 }
 

@@ -3,8 +3,9 @@
  * PATRÓN ESTRUCTURAL: DECORATOR CONCRETO
  * Decorador: ComputadoresExtraDecorator
  * =========================================================================
- * Añade un kit de cómputo avanzado (laptops de alto rendimiento para
+ * Añade un kit de cómputo avanzado (20 laptops de alto rendimiento para
  * ingeniería y talleres de desarrollo/ciberseguridad).
+ * Recurso académico institucional gratuito.
  */
 
 import { ReservaDecorator } from './ReservaDecorator.js';
@@ -13,8 +14,7 @@ import { ReservaDecorator } from './ReservaDecorator.js';
 export class ComputadoresExtraDecorator extends ReservaDecorator {
   constructor(reserva) {
     super(reserva);
-    this.costoExtra = 60000;
-    this.pesoExtra = 3;
+    this.pesoExtra = 3; // Nivel de dotación alta: requiere alistamiento técnico
   }
 
   getDescripcion() {
@@ -32,10 +32,6 @@ export class ComputadoresExtraDecorator extends ReservaDecorator {
 
   getPesoRecursos() {
     return super.getPesoRecursos() + this.pesoExtra;
-  }
-
-  getCosto() {
-    return super.getCosto() + this.costoExtra;
   }
 }
 

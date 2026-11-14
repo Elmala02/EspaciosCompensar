@@ -70,7 +70,7 @@ export class EstudianteReservaStrategy extends ValidacionReservaStrategy {
       detalles: {
         codigo: reserva.getId(),
         prioridad: 'Estándar',
-        costoCOP: reserva.getCosto(),
+        tipoAcceso: reserva.getTipoAcceso(),
         recursos: recursos
       }
     };
